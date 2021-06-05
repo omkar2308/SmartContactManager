@@ -33,7 +33,7 @@ public class HomeController {
 //		return "working";
 //	}
 	
-	@RequestMapping( "/home" )
+	@RequestMapping( "/" )
 	public String home(Model m) {
 		
 		m.addAttribute("title","Home-Smart Contact");
@@ -45,6 +45,12 @@ public class HomeController {
 		
 		m.addAttribute("title","About-Smart Contact");
 		return "about";
+	}
+	@RequestMapping( "/signup" )
+	public String signup(Model m) {
+		
+		m.addAttribute("title","Register-Smart Contact");
+		return "signup";
 	}
 }
 

@@ -1,16 +1,77 @@
 <!doctype html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="base :: layout(~{::section})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	th:replace="base :: layout(~{::section})">
 <head>
-	<meta charset="UTF-8" /> 
-	<title > about</title>
+<meta charset="UTF-8" />
+<title>about</title>
 </head>
 <body>
-	
-	
+
+
 	<section>
-	
-	<h1>This is signup page register here</h1>
-	<h2>Created by Omkar : Smart-contact-manager</h2>
+
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-8 offset-md-2">
+
+					<div class="my-card mt-3">
+						
+						<div class="container text-center">
+							<img style="width: 100px;" src="" th:src=@{/img/register.png}
+								alt="" class="src" />
+
+						</div>
+
+						<h1 class="lable text-center">Register Here</h1>
+
+						<form action="" th:action="@{do_register} " method="post">
+
+							<!-- name field -->
+							<div class="mb-3">
+								<label for="name_field"> Name </label> <input type="name"
+									class="form-control" id="name_field"
+									placeholder="Enter your name" required="required">
+							</div>
+							<!-- email field -->
+							<div class="mb-3">
+								<label for="email_field"> Email </label> <input type="email"
+									class="form-control" id="email_field"
+									placeholder="Enter your Email" required="required">
+							</div>
+							<!-- password password -->
+							<div class="mb-3">
+								<label for="password_field"> Password </label> <input
+									type="password" class="form-control" id="password_field"
+									placeholder="Enter your password" required="required">
+							</div>
+
+							<!-- user about field -->
+							<div class="form-group mb-3">
+
+								<textarea placeholder="Enter about Yourself..." rows="5"
+									class="form-control"></textarea>
+							</div>
+
+							<!-- button -->
+
+							<div class="container text-left">
+								<button class="btn bg-primary text-white">Submit</button>
+								<button type="reset" class="btn btn-warning text-white">
+									Reset</button>
+							</div>
+
+						</form>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
 	</section>
 </body>
 </html>

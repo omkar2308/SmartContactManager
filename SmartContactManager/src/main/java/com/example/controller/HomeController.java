@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.dao.UserRepository;
 import com.example.entities.Contact;
 import com.example.entities.User;
+import com.example.helper.Message;
 
 @Controller
 public class HomeController {
@@ -37,7 +40,7 @@ public class HomeController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@RequestMapping("/")
 	public String home(Model m) {
 
@@ -60,23 +63,37 @@ public class HomeController {
 		return "signup";
 	}
 
-//	handler for registering user
+//	Handler for registering user
 	@RequestMapping(value = "/do_register", method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute("user") User user,
-			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model m) {
-		if(!agreement) {
-			System.out.println("you have not aggred terms and conditions");
+			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model m,HttpSession session) 
+	{
+		try {
+			if(!agreement) {
+				System.out.println("you have not aggred terms and conditions");
+				throw new Exception("you have not aggred terms and conditions");
+			}
+			
+			user.setRole("ROAL_USER");
+			user.setEnabled(true);
+			user.setImageUrl("default.png");
+			
+			System.out.println("agreement " + agreement);
+			System.out.println("user" + user);
+			
+			User result = this.userRepository.save(user);
+			m.addAttribute("user",new User());
+			session.setAttribute("message", new Message("succesfully registered", "alert-success")); 
+			return "signup";
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			m.addAttribute("user",user);
+			session.setAttribute("message", new Message("somthing went wong...!"+e.getMessage(), "alert-danger"));
+			return "signup";
 		}
+
 		
-		user.setRole("ROAL_USER");
-		user.setEnabled(true);
-		user.setImageUrl("default.png");
-		
-		User result = this.userRepository.save(user);
-		m.addAttribute("user",result);
-		
-		System.out.println("agreement " + agreement);
-		System.out.println("user" + user);
-		return "signup";
 	}
 }

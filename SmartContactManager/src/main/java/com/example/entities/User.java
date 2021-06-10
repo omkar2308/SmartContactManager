@@ -12,6 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "USER")
@@ -20,16 +24,40 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@NotBlank(message = "Name is required...!")
+	@Size(min = 2 ,max = 20,message = "Min 2 and max 20 characters are allowed." )
 	private String name;
+	
+	@NotBlank(message = "Email is required...!")
+	@Email(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Please enter a valid e-mail address")
 	@Column(unique = true)
 	private String email;
+	
+	@NotBlank
+    @Size(min = 2, max = 15, message = "Min 2 and max 15 characters are allowed.")
 	private String password;
+	
 	private String role;
 	private boolean enabled;
 	private String imageUrl;
+	
+	@NotBlank
+	@Size(max = 1000)
 	@Column(length = 1000)
 	private String about;
 	
+	@AssertTrue(message = "Must agree T&C.")
+	private boolean agreement;
+	
+	public boolean isAgreement() {
+		return agreement;
+	}
+
+	public void setAgreement(boolean agreement) {
+		this.agreement = agreement;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY ,mappedBy = "user")
 	List<Contact> contacts=new ArrayList<>();
 	
@@ -113,9 +141,11 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contacts=" + contacts
-				+ "]";
+				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", agreement=" + agreement
+				+ ", contacts=" + contacts + "]";
 	}
+
+	
 	
 	
 	

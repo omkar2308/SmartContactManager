@@ -1,10 +1,12 @@
 package com.example.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,15 +67,21 @@ public class HomeController {
 
 //	Handler for registering user
 	@RequestMapping(value = "/do_register", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("user") User user,
+	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model m,HttpSession session) 
 	{
 		try {
-			if(!agreement) {
-				System.out.println("you have not aggred terms and conditions");
-				throw new Exception("you have not aggred terms and conditions");
-			}
+//			if(!agreement) {
+//				System.out.println("you have not aggred terms and conditions");
+//				throw new Exception("you have not aggred terms and conditions");
+//			}
 			
+			if (bindingResult.hasErrors()) {
+				System.out.println("errors "+bindingResult.toString());
+				m.addAttribute("user", user);
+				return "signup";
+			}
+			 
 			user.setRole("ROAL_USER");
 			user.setEnabled(true);
 			user.setImageUrl("default.png");

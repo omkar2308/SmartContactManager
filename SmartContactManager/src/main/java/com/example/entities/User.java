@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "USER")
+@Table(name ="USER")
 public class User {
 	
 	@Id
@@ -35,7 +35,7 @@ public class User {
 	private String email;
 	
 	@NotBlank
-    @Size(min = 2, max = 15, message = "Min 2 and max 15 characters are allowed.")
+    //@Size(min = 2, max = 15, message = "Min 2 and max 15 characters are allowed.")
 	private String password;
 	
 	private String role;

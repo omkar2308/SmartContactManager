@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +44,9 @@ public class HomeController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 	@RequestMapping("/")
 	public String home(Model m) {
 
@@ -68,40 +72,39 @@ public class HomeController {
 //	Handler for registering user
 	@RequestMapping(value = "/do_register", method = RequestMethod.POST)
 	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
-			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model m,HttpSession session) 
-	{
+			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model m,
+			HttpSession session) {
 		try {
 //			if(!agreement) {
 //				System.out.println("you have not aggred terms and conditions");
 //				throw new Exception("you have not aggred terms and conditions");
 //			}
-			
+
 			if (bindingResult.hasErrors()) {
-				System.out.println("errors "+bindingResult.toString());
-				m.addAttribute("user", user);
+				System.out.println("errors " + bindingResult.toString());
+				m.addAttribute("user",user);
 				return "signup";
 			}
-			 
-			user.setRole("ROAL_USER");
+
+			user.setRole("ROLE_USER");
 			user.setEnabled(true);
 			user.setImageUrl("default.png");
-			
-			System.out.println("agreement " + agreement);
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+			System.out.println("agreement" + agreement);
 			System.out.println("user" + user);
-			
+
 			User result = this.userRepository.save(user);
-			m.addAttribute("user",new User());
-			session.setAttribute("message", new Message("succesfully registered", "alert-success")); 
+			m.addAttribute("user", new User());
+			session.setAttribute("message", new Message("succesfully registered", "alert-success"));
 			return "signup";
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			m.addAttribute("user",user);
-			session.setAttribute("message", new Message("somthing went wong...!"+e.getMessage(), "alert-danger"));
+			m.addAttribute("user", user);
+			session.setAttribute("message", new Message("somthing went wong...!" + e.getMessage(), "alert-danger"));
 			return "signup";
 		}
 
-		
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.example.dao.UserRepository;
 import com.example.entities.User;
 
-public class UserDetailService implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -19,12 +19,12 @@ public class UserDetailService implements UserDetailsService {
 		// fetching data from database
 		User user = userRepository.getUserByUserName(username);
 
-		if (user == null) {
+		if (user==null) {
 			throw new UsernameNotFoundException("could not found user..!!");
 		}
 
 		CustamUserDetails custamUserDetails = new CustamUserDetails(user);
-		System.out.println(custamUserDetails);
+//		System.out.println(custamUserDetails);
 		return custamUserDetails;
 	}
 

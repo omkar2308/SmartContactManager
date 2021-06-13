@@ -82,7 +82,7 @@ public class HomeController {
 
 			if (bindingResult.hasErrors()) {
 				System.out.println("errors " + bindingResult.toString());
-				m.addAttribute("user",user);
+				m.addAttribute("user", user);
 				return "signup";
 			}
 
@@ -107,4 +107,13 @@ public class HomeController {
 		}
 
 	}
+//	handler for loging 
+	
+	@GetMapping("/signin")
+	public String Login(Model m) {
+		
+		return "signin";
+	}
+	
+
 }

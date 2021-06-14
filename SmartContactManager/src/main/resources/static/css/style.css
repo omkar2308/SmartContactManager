@@ -1,40 +1,105 @@
 body {
 	background-color: #e2e2e2 !important;
 }
-.bg-primary{
-	background-color: #8000ff!important; 
+
+.bg-primary {
+	background-color: #8000ff !important;
 }
 
-.banner{
-	width:100%;
+.banner {
+	width: 100%;
 	height: 100vh;
-	background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,0.5)) ,url("../img/contact2.jpg");
-	background-size:cover;
+	background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0.5)),
+		url("../img/contact2.jpg");
+	background-size: cover;
 	color: white;
 }
 
-.my-card{
+.my-card {
 	padding: 20px;
 	background: white;
 }
-.lable{
+
+.lable {
 	font-family: cursive;
 }
-.text-info{
+
+.text-info {
 	font-family: cursive;
 }
 
 #login .container #login-row #login-column #login-box {
-  margin-top: 80px;
-  max-width: 600px;
-  height: 420px;
-  border: 1px solid #9C9C9C;
-  background-color: white;
+	margin-top: 80px;
+	max-width: 600px;
+	height: 420px;
+	border: 1px solid #9C9C9C;
+	background-color: white;
+}
+
+#login .container #login-row #login-column #login-box #login-form {
+	padding: 50px;
+}
+
+#login .container #login-row #login-column #login-box #login-form #register-link
+	{
+	margin-top: -40px;
+}
+
+/* sidebar style */
+
+@media only screen  and (max-width:600px){
+	.sidebar {
+	display: none;
+	width:80%; 
+	background: white;
+	height: 100vh;
+	position: fixed;
+	padding-top: 20px;
+}
+.content{
+	margin-left: 0%;
+}
+
 
 }
-#login .container #login-row #login-column #login-box #login-form {
-  padding: 50px;
+
+.sidebar {
+	width: 18%;
+	background: white;
+	height: 100%;
+	position: fixed;
+	padding-top: 45px;
 }
-#login .container #login-row #login-column #login-box #login-form #register-link {
-  margin-top: -40px;
+
+.sidebar a {
+	display: block;
+	width: 100%;
+	padding: 10px 25px;
+	text-decoration: none;
+	color: gray;
+}
+
+.sidebar a:hover {
+	background: black;
+}
+.sidebar .divider{
+	width: 100%;
+	height:.5px;
+	background: #e2e2e2;
+	margin-top: 10px;
+	
+	
+}
+
+.content {
+	margin-left: 20%;
+}
+
+.sidebar .crossbtn{ 
+	position: absolute;
+	top: 0px;
+	right: 35px;
+	font-size: 36px;
+	cursor: pointer;
+	
 }

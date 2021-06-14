@@ -13,8 +13,21 @@
 	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
 	crossorigin="anonymous">
 
+<!-- 	for icons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <!-- 	link css here -->
 <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+<!-- added bcz toggle function not working -->
+<script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.js" -->
+<!-- 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" -->
+<!-- 	crossorigin="anonymous"></script> -->
+
 
 <title th:text="${title}">Hello, world!</title>
 </head>
@@ -50,7 +63,35 @@
 
 	<!-- 	end navbar -->
 
-	<div th:replace=${content}></div>
+	<!-- START sidebar -->
+
+	<div class="sidebar">
+		
+		<span onclick="toggleSidebar()" class="crossbtn">&times;</span>
+
+		<a href="" class="item"> <i class="fas fa-home"></i> Home
+		</a> <a href="" class="item"> <i class="fas fa-address-book"></i>
+			ViewContacts
+		</a> <a href="" class="item"> <i class="fas fa-file-signature"></i>
+			Add contacts
+		</a> <a href="" class="item"> <i class="fas fa-user"></i> Your Profile
+		</a> <a href="" class="item"> <i class="fas fa-user-cog"></i> Settings
+		</a> <a href="" class="item"> <i class="fas fa-sign-out-alt"></i>
+			Logout
+		</a>
+
+		<div class="div divider"></div>
+
+	</div>
+	<!-- 	END sidebar -->
+
+
+	<!-- content area -->
+	<div class="content">
+		<i onclick="toggleSidebar()" class="fa fa-bars m-3"></i>
+		<div th:replace=${content}></div>
+	</div>
+	<!-- END content area -->
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

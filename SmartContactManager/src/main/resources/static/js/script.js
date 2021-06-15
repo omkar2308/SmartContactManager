@@ -9,6 +9,8 @@ const toggleSidebar = () => {
 		$(".content").css("margin-left", "0%");
 
 	} else{
+		//false
+		//show krna he 
 		$(".sidebar").css("display", "block");
 		$(".content").css("margin-left", "20%");
 	}

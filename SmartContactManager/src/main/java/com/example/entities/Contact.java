@@ -7,20 +7,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "CONTACT")
 public class Contact {
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cId;
+	
+	@NotBlank(message = "Name is required...!")
 	private String name;
+	
+	@NotBlank(message = "secondname is required...!")
 	private String secondName;
+	
+	@NotBlank(message = "work is required...!")
 	private String work;
+	@NotBlank(message = "email is required...!")
 	private String email;
+	@NotBlank(message = "phone is required...!")
 	private String phone;
+	
 	private String imageUrl;
+	
+	@NotBlank
 	@Column(length = 10000)
 	private String discription;
 	
@@ -74,7 +92,13 @@ public class Contact {
 	}
 	public void setDiscription(String discription) {
 		this.discription = discription;
-	} 
+	}
+//	@Override
+//	public String toString() {
+//		return "Contact [cId=" + cId + ", name=" + name + ", secondName=" + secondName + ", work=" + work + ", email="
+//				+ email + ", phone=" + phone + ", imageUrl=" + imageUrl + ", discription=" + discription + ", user="
+//				+ user + "]";
+//	} 
 	
 	
 }
